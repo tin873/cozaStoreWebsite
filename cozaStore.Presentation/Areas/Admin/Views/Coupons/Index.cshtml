@@ -1,0 +1,44 @@
+﻿@model IEnumerable<cozaStore.Models.Coupon>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Danh sách mã giảm giá</h2>
+
+<p>
+    @Html.ActionLink("Thêm mã mới", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Mã giảm giá
+        </th>
+        <th>
+            Phần trăm giảm
+        </th>
+        <th>
+            Mô tả
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.CouponCode)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Discount)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Description)
+    </td>
+    <td>
+        @Html.ActionLink("Sửa", "Edit", new { id = item.CouponCode }) |
+        @Html.ActionLink("Xóa", "Delete", new { id = item.CouponCode })
+    </td>
+</tr>
+}
+
+</table>

@@ -1,0 +1,103 @@
+﻿@model Order
+<div class="how-pos2 p-lr-15-md" style="padding-top: 30px;">
+    <div style="border: 1px solid #e6e6e6;">
+        <div class="header" style="padding: 20px; border-bottom: 1px solid #e6e6e6; padding-left: 845px; color: red;  background-color:#e6e6e6;">
+            @if (Model.Status.ToString().Equals("waitForConfirm"))
+            {
+                <h5>Chờ xác nhận</h5>
+            }
+            @if (Model.Status.ToString().Equals("shipping"))
+            {
+                <h5>Đang giao hàng</h5>
+            }
+            @if (Model.Status.ToString().Equals("delivered"))
+            {
+                <h5>Đã nhận</h5>
+            }
+            @if (Model.Status.ToString().Equals("cancelled"))
+            {
+                <h5>Đã hủy</h5>
+            }
+        </div>
+        <div style="height: 300px; overflow-y: scroll;">
+            @foreach (var item in Model.OrderDetails)
+            {
+                <div class="media" style="border-bottom: 1px solid #e6e6e6;">
+                    <img class="align-self-start mr-3" src="~/wwwroot/images/@(item.ProductDetail.Image)" alt="Generic placeholder image" height="150">
+                    <div class="media-body row">
+                        <div style="padding-top: 30px;" class="col-9">
+                            <h5 class="mt-0">@item.ProductDetail.ProductName</h5>
+                            <p>Size: @item.ProductDetail.Size</p>
+                            <p>Màu sắc: @item.ProductDetail.Color</p>
+                            <p>x @item.Quantity</p>
+                        </div>
+                        <div class="col-3" style="padding-top: 90px;">
+                            <p style="color: red;">
+                                @((item.Quantity*item.ProductDetail.Price).ToString("#,###")) đ
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+        <div style="padding: 20px 0px 0px 650px;">
+            <p style="padding-left:160px;">Giảm: @(Model.Coupon.Discount)%</p>
+            <p style="padding-left:160px;">Tổng số tiền: <span style="color: red;">@Model.SumTotal.ToString("#,###")đ</span></p>
+            <div style="padding-top: 10px; padding-bottom: 50px;">
+                <button type="button" class="btn btn-success orderrealease@(Model.OrderID)">Mua Lại</button>
+                <button onclick="location.href = '@Url.Action("OrderHistoryDetail","OrderHistory", new { id = Model.OrderID})'" type="button" class="btn btn-outline-secondary">Xem chi tiết đơn hàng</button>
+                @if (Model.Status.ToString().Equals("waitForConfirm"))
+                {
+                    <button type="button" class="btn btn-outline-danger cencellorder@(Model.OrderID)">Hủy đơn</button>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/wwwroot/vendor/jquery/jquery-3.2.1.min.js"></script>
+<script>
+        $(function () {
+            $(".cencellorder"+@(Model.OrderID)).click(function (e) {
+                e.preventDefault();
+                swal({
+                    title: "Hủy đơn hàng",
+                    text: "Bạn chắc chắng muốn hủy đơn hàng này ?",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            var url = "/OrderHistory/CencellOrder";
+                $.get(url, { id: @Model.OrderID }, function (data) {
+
+
+                })
+                            location.reload();
+                        } else {
+
+                        }
+                    });
+
+                    //.then((value) => {
+                    //    location.reload();
+                    //});
+            });
+        });
+     $(function () {
+         $(".orderrealease"+@(Model.OrderID)).click(function (e) {
+                e.preventDefault();
+             var url = "/OrderHistory/OrderRealease";
+             $.get(url, { id: @Model.OrderID }, function (data) {
+                 if (data.indexOf('D') > 0) {
+                     window.location.href = "/ShoppingCart/Index"
+                 }
+                 else {
+                     swal("Sản phẩm này không tồn tại hoặc đã hết!");
+                 }
+             })
+            });
+        });
+</script>
+

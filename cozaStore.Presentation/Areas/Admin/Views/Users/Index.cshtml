@@ -1,0 +1,52 @@
+﻿@model IEnumerable<User>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Danh sách người dùng</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Chức năng
+        </th>
+        <th>
+            Họ tên
+        </th>
+        <th>
+            Email
+        </th>
+        <th>
+            Địa chỉ
+        </th>
+        <th>
+            Số điện thoại
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Role.RoleName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FullName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Phone)
+        </td>
+        <td>
+            @Html.ActionLink("Xóa thành viên", "Delete", new { id=item.UserID })
+        </td>
+    </tr>
+}
+
+</table>

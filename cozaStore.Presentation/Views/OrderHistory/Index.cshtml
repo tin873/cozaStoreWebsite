@@ -1,0 +1,74 @@
+﻿@model List<Order>
+@{
+    ViewBag.Title = "Lịch sử mua hàng";
+}
+
+<!-- Contents -->
+<section class="sec-product-detail bg0 p-t-65 p-b-60">
+    <div class="container">
+        <div class="bor10 p-b-20">
+            <!-- Tab01 -->
+            <div class="tab01">
+                <!-- Nav tabs -->
+                <ul style="border-bottom: 1px solid #e6e6e6;" class="nav nav-tabs" role="tablist">
+                    <li class="nav-item p-b-10" style="padding: 10px 30px 10px 30px;">
+                        <a class="nav-link active" style="font-size: 20px; font-family: 'Times New Roman', Times, serif;" data-toggle="tab" href="#allhistory" role="tab">Tất cả</a>
+                    </li>
+                    <li class="nav-item p-b-10" style="padding: 10px 30px 10px 30px;">
+                        <a class="nav-link" data-toggle="tab" style="font-size: 20px; font-family: 'Times New Roman', Times, serif;" href="#waitconfirm" role="tab">Chờ xác nhận</a>
+                    </li>
+
+                    <li class="nav-item p-b-10" style="padding: 10px 30px 10px 30px;">
+                        <a class="nav-link" data-toggle="tab" style="font-size: 20px; font-family: 'Times New Roman', Times, serif;" href="#delivering" role="tab">Đang giao</a>
+                    </li>
+
+                    <li class="nav-item p-b-10" style="padding: 10px 30px 10px 30px;">
+                        <a class="nav-link" data-toggle="tab" style="font-size: 20px; font-family: 'Times New Roman', Times, serif;" href="#deliverded" role="tab">Đã giao</a>
+                    </li>
+
+                    <li class="nav-item p-b-10" style="padding: 10px 30px 10px 30px;">
+                        <a class="nav-link" data-toggle="tab" style="font-size: 20px; font-family: 'Times New Roman', Times, serif;" href="#cancelled" role="tab">Đã hủy</a>
+                    </li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content p-t-43">
+                    <!-- All order history -->
+                    <div class="tab-pane fade show active" id="allhistory" role="tabpanel">
+                        @if (Model.Count() > 0)
+                        {
+                            foreach (var order in Model)
+                            {
+                                @Html.Partial("_OrderHistoryOverView", order)
+                            }
+                        }
+                        else
+                        {
+                            <div class="how-pos2 p-lr-15-md">
+                                <div style="text-align: center; padding: 150px;"> <img src="~/wwwroot/images/emtyOrder.png"></div>
+                            </div>
+                        }
+                    </div>
+                    <!-- order history wait confirm -->
+                    <div class="tab-pane fade" id="waitconfirm" role="tabpanel">
+                        @{ Html.RenderAction("_WaitConfirm", "OrderHistory");}
+                    </div>
+                    <!-- order history delivering -->
+                    <div class="tab-pane fade" id="delivering" role="tabpanel">
+                        @{ Html.RenderAction("_Delivering", "OrderHistory");}
+                    </div>
+                    <!-- order history deliverded -->
+                    <div class="tab-pane fade" id="deliverded" role="tabpanel">
+                        @{ Html.RenderAction("_Deliverded", "OrderHistory");}
+                    </div>
+                    <!-- order history cancelled -->
+                    <div class="tab-pane fade" id="cancelled" role="tabpanel">
+                        @{ Html.RenderAction("_Cancelled", "OrderHistory");}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+

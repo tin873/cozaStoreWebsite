@@ -1,0 +1,93 @@
+﻿@model List<CartItem>
+<div class="wrap-header-cart js-panel-cart">
+    <div class="s-full js-hide-cart"></div>
+    @if (Model.Count > 0)
+    {
+
+
+<div class="header-cart flex-col-l p-l-65 p-r-25">
+    <div class="header-cart-title flex-w flex-sb-m p-b-8">
+        <span class="mtext-103 cl2">
+            Giỏ hàng
+        </span>
+
+        <div class="fs-35 lh-10 cl2 p-lr-5 pointer hov-cl1 trans-04 js-hide-cart">
+            <i class="zmdi zmdi-close"></i>
+        </div>
+    </div>
+
+    <div class="header-cart-content flex-w js-pscroll">
+        <ul class="header-cart-wrapitem w-full">
+            @foreach (var item in Model)
+            {
+<li class="header-cart-item flex-w flex-t m-b-12">
+    <a class="removeproduct" data-id="@item.ProductDetail.ProductDetailId"><div class="header-cart-item-img">
+    <img src="~/wwwroot/images/@item.ProductDetail.Image" alt="IMG">
+</div></a>
+
+    <div class="header-cart-item-txt p-t-8">
+        <a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
+            @item.ProductDetail.ProductName
+        </a>
+
+        <span class="header-cart-item-info">
+            @item.Quantity x @(item.ProductDetail.Price.ToString("#,###"))đ
+        </span>
+    </div>
+</li>}
+
+
+        </ul>
+
+        <div class="w-full">
+            <div class="header-cart-total w-full p-tb-40">
+                Tổng tiền: @(ViewBag.SumTotal)đ
+            </div>
+
+            <div class="header-cart-buttons flex-w w-full">
+                <a href="@Url.Action("Index","ShoppingCart")" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10">
+                    Giỏ hàng
+                </a>
+
+                @if (Session["userId"] != null)
+                {
+            <a href="@Url.Action("Index", "CheckOut")" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10">
+                Thanh toán
+            </a> }
+                            else
+                            {
+                                <a href="@Url.Action("Login", "Home")" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10">
+                                    Đăng nhập
+                                </a>
+                            }
+            </div>
+        </div>
+    </div>
+</div> }
+            else
+            {
+<div class="header-cart flex-col-l p-l-65 p-r-25" style="height: 100%;">
+    <div class="text-center" style="padding-top: 150px;">
+        <img width="100%" class="" src="~/wwwroot/images/icons/empty_cart.png" alt="Anh" />
+    </div>
+    <div class="text-center" style="padding:40px;">
+        <p>Giỏ hàng của bạn còn trống!</p>
+        <button onclick="location.href = '@Url.Action("Index","Home")'" type="button" class="btn btn-danger">Mua ngay</button>
+    </div>
+</div>}
+</div>
+
+<script src="~/wwwroot/vendor/jquery/jquery-3.2.1.min.js"></script>
+<script>
+    $("a.removeproduct").click(function (e) {
+        e.preventDefault();
+
+        var $this = $(this);
+        var productId = $(this).data("id");
+        var url = "/ShoppingCart/RemoveProduct";
+
+        $.get(url, { productId: productId }, function (data) {
+            location.reload();
+        });
+    });
+</script>

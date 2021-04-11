@@ -1,0 +1,108 @@
+﻿@model Order
+@{
+    ViewBag.Title = "Chi tiết đơn hàng";
+}
+
+
+<!-- Contents -->
+<section class="sec-product-detail bg0 p-t-65 p-b-60">
+    <div class="container">
+        <div class="bor10 p-b-40">
+            <div class="row" style="padding: 20px;">
+                <div class="col">
+                    <a style="color: #555555;" href="@Url.Action("Index", "OrderHistory")">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-left" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
+                            <path fill-rule="evenodd" d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
+                        </svg><span style="font-size: 20px;">Quay lại</span>
+                    </a>
+                </div>
+                <div class="col">
+                    @if (Model.Status.ToString().Equals("waitForConfirm"))
+                    {
+                        <h5 style="color: red; padding-left: 450px;">Đang chờ xác nhận</h5>
+                    }
+                    @if (Model.Status.ToString().Equals("shipping"))
+                    {
+                        <h5 style="color: red; padding-left: 450px;">Đang giao hàng</h5>
+                    }
+                    @if (Model.Status.ToString().Equals("delivered"))
+                    {
+                        <h5 style="color: red; padding-left: 450px;">Đã nhận</h5>
+                    }
+                    @if (Model.Status.ToString().Equals("cancelled"))
+                    {
+                        <h5 style="color: red; padding-left: 450px;">Đã hủy</h5>
+                    }
+
+                </div>
+            </div>
+            <div style="border-top: 1px solid #e6e6e6;">
+                <div style="padding: 20px">
+                    <h4 style="padding-bottom: 10px;">Địa Chỉ Nhận Hàng</h4>
+                    <p style="padding-bottom: 10px;"><strong>@Model.FullName</strong></p>
+                    <p style="padding-bottom: 10px;">@Model.Phone</p>
+                    <p>@Model.Address</p>
+                </div>
+            </div>
+            <div style="border-top: 1px solid #e6e6e6;"></div>
+            <div>
+                @foreach (var item in Model.OrderDetails)
+                {
+                    <div class="media" style="border-bottom: 1px solid #e6e6e6;">
+                        <img class="align-self-start mr-3" src="~/wwwroot/images/@(item.ProductDetail.Image)" alt="Generic placeholder image" height="150">
+                        <div class="media-body row">
+                            <div style="padding-top: 30px;" class="col-9">
+                                <h5 class="mt-0">@item.ProductDetail.ProductName</h5>
+                                <p>Size: @item.ProductDetail.Size</p>
+                                <p>Màu sắc: @item.ProductDetail.Color</p>
+                                <p>x@(item.Quantity)</p>
+                            </div>
+                            <div class="col-3" style="padding-top: 90px;">
+                                <p style="color: red; padding-left: 170px;">
+                                    @((item.Quantity*item.ProductDetail.Price).ToString("#,###"))đ
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div>
+                <div style="display: -webkit-box;display: -webkit-flex;display: -moz-box;display: -ms-flexbox;display: flex;-webkit-box-pack: end;-webkit-justify-content: flex-end;-moz-box-pack: end;-ms-flex-pack: end;justify-content: flex-end;text-align: end;border-bottom: 1px dotted rgba(0,0,0,.09); padding-right: 55px;">
+                    <div style="border-right: 1px dotted rgba(0,0,0,.09); padding: .8125rem .625rem;font-size: .75rem;color: rgba(0,0,0,.54);">Tổng tiền hàng</div>
+                    <div style="    min-width: 12.5rem; color: rgba(0,0,0,.8); word-wrap: break-word;">
+                        <div style="    text-align: right; margin: .3125rem 0 .3125rem auto;     color: rgba(0,0,0,.8); word-wrap: break-word; padding-top: 4px; padding-bottom: 4px;">@(Model.SumTotalNoDiscout.ToString("#,###"))đ</div>
+                    </div>
+                </div>
+                <div style="display: -webkit-box;display: -webkit-flex;display: -moz-box;display: -ms-flexbox;display: flex;-webkit-box-pack: end;-webkit-justify-content: flex-end;-moz-box-pack: end;-ms-flex-pack: end;justify-content: flex-end;text-align: end;border-bottom: 1px dotted rgba(0,0,0,.09); padding-right: 55px;">
+                    <div style="border-right: 1px dotted rgba(0,0,0,.09); padding: .8125rem .625rem;font-size: .75rem;color: rgba(0,0,0,.54);">Giảm giá</div>
+                    <div style="    min-width: 12.5rem; color: rgba(0,0,0,.8); word-wrap: break-word;">
+                        <div style="    text-align: right; margin: .3125rem 0 .3125rem auto; padding-top: 4px; padding-bottom: 4px;">@(Model.Coupon.Discount)%</div>
+                    </div>
+                </div>
+                <div style="display: -webkit-box;display: -webkit-flex;display: -moz-box;display: -ms-flexbox;display: flex;-webkit-box-pack: end;-webkit-justify-content: flex-end;-moz-box-pack: end;-ms-flex-pack: end;justify-content: flex-end;text-align: end;border-bottom: 1px dotted rgba(0,0,0,.09); padding-right: 55px;">
+                    <div style="border-right: 1px dotted rgba(0,0,0,.09); padding: .8125rem .625rem;font-size: .75rem;color: rgba(0,0,0,.54);">Tiền vận chuyển</div>
+                    <div style="    min-width: 12.5rem; color: rgba(0,0,0,.8); word-wrap: break-word;">
+                        <div style="    text-align: right; margin: .3125rem 0 .3125rem auto; padding-top: 4px; padding-bottom: 4px;">0đ</div>
+                    </div>
+                </div>
+                <div style="display: -webkit-box;display: -webkit-flex;display: -moz-box;display: -ms-flexbox;display: flex;-webkit-box-pack: end;-webkit-justify-content: flex-end;-moz-box-pack: end;-ms-flex-pack: end;justify-content: flex-end;text-align: end;border-bottom: 1px dotted rgba(0,0,0,.09); padding-right: 55px;">
+                    <div style="border-right: 1px dotted rgba(0,0,0,.09); padding: .8125rem .625rem;font-size: .75rem;color: rgba(0,0,0,.54);">Tổng số tiền</div>
+                    <div style="    min-width: 12.5rem; color: rgba(0,0,0,.8); word-wrap: break-word;">
+                        <div style="text-align: right; margin: .3125rem 0 .3125rem auto;">
+                            <p style="font-size: 25px; color: red; padding-top: 4px; padding-bottom: 4px;">@(Model.SumTotal.ToString("#,###"))đ</p>
+                        </div>
+                    </div>
+                </div>
+                <div style="display: -webkit-box;display: -webkit-flex;display: -moz-box;display: -ms-flexbox;display: flex;-webkit-box-pack: end;-webkit-justify-content: flex-end;-moz-box-pack: end;-ms-flex-pack: end;justify-content: flex-end;text-align: end;border-bottom: 1px dotted rgba(0,0,0,.09); padding-right: 55px;">
+                    <div style="border-right: 1px dotted rgba(0,0,0,.09); padding: .8125rem .625rem;font-size: .75rem;color: rgba(0,0,0,.54);">Phương thức vận chuển</div>
+                    <div style="    min-width: 12.5rem; color: rgba(0,0,0,.8); word-wrap: break-word;">
+                        <div style="    text-align: right; margin: .3125rem 0 .3125rem auto; padding-top: 4px; padding-bottom: 4px;">Thanh toán khi nhận hàng</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+

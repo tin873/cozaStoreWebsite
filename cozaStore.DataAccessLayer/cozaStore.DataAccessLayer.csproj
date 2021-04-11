@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F3A72A45-52AD-4251-B08D-55B555932050}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>cozaStore.DataAccessLayer</RootNamespace>
+    <AssemblyName>cozaStore.DataAccessLayer</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="cozaStoreDbContext.cs" />
+    <Compile Include="DbInitializer.cs" />
+    <Compile Include="Infrastructure\DbFactory.cs" />
+    <Compile Include="Infrastructure\Disposable.cs" />
+    <Compile Include="Infrastructure\IDbFactory.cs" />
+    <Compile Include="Infrastructure\IUnitOfWork.cs" />
+    <Compile Include="Infrastructure\UnitOfWork.cs" />
+    <Compile Include="Migrations\202103240849308_CozaStoreV1.cs" />
+    <Compile Include="Migrations\202103240849308_CozaStoreV1.Designer.cs">
+      <DependentUpon>202103240849308_CozaStoreV1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103251443338_CozaStoreV2.cs" />
+    <Compile Include="Migrations\202103251443338_CozaStoreV2.Designer.cs">
+      <DependentUpon>202103251443338_CozaStoreV2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103310552122_CozaStoreV3.cs" />
+    <Compile Include="Migrations\202103310552122_CozaStoreV3.Designer.cs">
+      <DependentUpon>202103310552122_CozaStoreV3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103311507150_CozaStoreV4.cs" />
+    <Compile Include="Migrations\202103311507150_CozaStoreV4.Designer.cs">
+      <DependentUpon>202103311507150_CozaStoreV4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103311645303_CozaStoreV5.cs" />
+    <Compile Include="Migrations\202103311645303_CozaStoreV5.Designer.cs">
+      <DependentUpon>202103311645303_CozaStoreV5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104010547148_CozaStoreV6.cs" />
+    <Compile Include="Migrations\202104010547148_CozaStoreV6.Designer.cs">
+      <DependentUpon>202104010547148_CozaStoreV6.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104020213395_CozaStoreV7.cs" />
+    <Compile Include="Migrations\202104020213395_CozaStoreV7.Designer.cs">
+      <DependentUpon>202104020213395_CozaStoreV7.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104081725021_cozaStoreV8.cs" />
+    <Compile Include="Migrations\202104081725021_cozaStoreV8.Designer.cs">
+      <DependentUpon>202104081725021_cozaStoreV8.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reposistory\GenericReposistory.cs" />
+    <Compile Include="Reposistory\IGenericReposistory.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\cozaStore.Models\cozaStore.Models.csproj">
+      <Project>{b8c01ad5-b5c2-4352-93d7-7c81eac996f0}</Project>
+      <Name>cozaStore.Models</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202103240849308_CozaStoreV1.resx">
+      <DependentUpon>202103240849308_CozaStoreV1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103251443338_CozaStoreV2.resx">
+      <DependentUpon>202103251443338_CozaStoreV2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103310552122_CozaStoreV3.resx">
+      <DependentUpon>202103310552122_CozaStoreV3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103311507150_CozaStoreV4.resx">
+      <DependentUpon>202103311507150_CozaStoreV4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103311645303_CozaStoreV5.resx">
+      <DependentUpon>202103311645303_CozaStoreV5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104010547148_CozaStoreV6.resx">
+      <DependentUpon>202104010547148_CozaStoreV6.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104020213395_CozaStoreV7.resx">
+      <DependentUpon>202104020213395_CozaStoreV7.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104081725021_cozaStoreV8.resx">
+      <DependentUpon>202104081725021_cozaStoreV8.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

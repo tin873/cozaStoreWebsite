@@ -1,0 +1,390 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Coza Store</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="~/wwwroot/images/icons/favicon.png" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/wwwroot/vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/wwwroot/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/wwwroot/fonts/iconic/css/material-design-iconic-font.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/wwwroot/fonts/linearicons-v1.0.0/icon-font.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/wwwroot/vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/wwwroot/vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/wwwroot/vendor/animsition/css/animsition.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/wwwroot/vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/wwwroot/vendor/daterangepicker/daterangepicker.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/wwwroot/vendor/slick/slick.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/wwwroot/vendor/MagnificPopup/magnific-popup.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/wwwroot/vendor/perfect-scrollbar/perfect-scrollbar.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/wwwroot/css/util.css">
+    <link rel="stylesheet" type="text/css" href="~/wwwroot/css/main.css">
+    <!--===============================================================================================-->
+    <style>
+        div.menu-desktop ul li div a:hover {
+            background: content-box;
+            color: #717fe0;
+        }
+    </style>
+</head>
+<body class="animsition">
+
+    <!-- Header -->
+    <header>
+        <!-- Header desktop -->
+        <div class="container-menu-desktop">
+            <!-- Topbar -->
+            <div class="top-bar">
+                <div class="content-topbar flex-sb-m h-full container">
+                    <div class="left-top-bar">
+                        Miễn phí vận chuyển với đơn hàng từ 1.000.000 đ
+                    </div>
+
+                    @if (Session["UserID"] == null)
+                    {
+        <div class="right-top-bar flex-w h-full">
+            <a href="@Url.Action("Login", "Home")" class="flex-c-m trans-04 p-lr-25">
+                Đăng nhập
+            </a>
+
+            <a href="@Url.Action("Register", "Home")" class="flex-c-m trans-04 p-lr-25">
+                Đăng Ký
+            </a>
+
+        </div> }
+                    else
+                    {
+<div class="right-top-bar flex-w h-full">
+    <a href="@Url.Action("InforUser", "Home")" class="flex-c-m trans-04 p-lr-25">
+        <svg style="padding-right:5px;" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+        </svg>@Session["fullName"]
+    </a>
+    <a href="@Url.Action("Logout", "Home")" class="flex-c-m trans-04 p-lr-25">
+        Đăng xuất
+    </a>
+
+</div>}
+                </div>
+            </div>
+
+            <div class="wrap-menu-desktop" style="top: 40px;">
+                <nav class="limiter-menu-desktop container">
+
+                    <!-- Logo desktop -->
+                    <a href="@Url.Action("Index", "Home")" class="logo">
+                        <img src="/wwwroot/images/icons/logo-01.png" alt="IMG-LOGO">
+                    </a>
+
+                    <!-- Menu desktop -->
+                    <div class="menu-desktop">
+                        <ul class="main-menu">
+                            <li class="active-menu">
+                                <a href="@Url.Action("Index", "Home")">Trang chủ</a>
+                            </li>
+
+                            <li>
+                                <a href="@Url.Action("Index", "Products")">Sản phẩm</a>
+                            </li>
+
+
+                            @if (Session["UserId"] != null)
+                            {
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Giỏ hàng
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="background: content-box; border: none;">
+                                        <a class="dropdown-item" href="@Url.Action("Index", "ShoppingCart")">Xem giỏ hàng</a>
+                                        <a class="dropdown-item" href="@Url.Action("Index", "OrderHistory")">Đơn hàng đã mua</a>
+                                    </div>
+                                </li>
+                            }
+                            else
+                            {
+                                <li>
+                                    <a href="@Url.Action("Index", "ShoppingCart")">Giỏ hàng</a>
+                                </li>
+                            }
+
+
+                            <li>
+                                <a href="@Url.Action("Contact", "Home")">Liên hệ</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Icon header -->
+                    <div class="wrap-icon-header flex-w flex-r-m">
+                        <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
+                            <i class="zmdi zmdi-search"></i>
+                        </div>
+
+                        @{Html.RenderAction("CartPartial", "ShoppingCart");}
+
+
+                    </div>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Header Mobile -->
+        <div class="wrap-header-mobile">
+            <!-- Logo moblie -->
+            <div class="logo-mobile">
+                <a href="index.html"><img src="images/icons/logo-01.png" alt="IMG-LOGO"></a>
+            </div>
+
+            <!-- Icon header -->
+            <div class="wrap-icon-header flex-w flex-r-m m-r-15">
+                <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 js-show-modal-search">
+                    <i class="zmdi zmdi-search"></i>
+                </div>
+
+                @Html.Action("CartPartial", "ShoppingCart")
+
+            </div>
+
+            <!-- Button show menu -->
+            <div class="btn-show-menu-mobile hamburger hamburger--squeeze">
+                <span class="hamburger-box">
+                    <span class="hamburger-inner"></span>
+                </span>
+            </div>
+        </div>
+
+
+        <!-- Menu Mobile -->
+        <div class="menu-mobile">
+            <ul class="topbar-mobile">
+                <li>
+                    <div class="left-top-bar">
+                        Free shipping for standard order over $100
+                    </div>
+                </li>
+
+                <li>
+                    <div class="right-top-bar flex-w h-full">
+                        <a href="#" class="flex-c-m p-lr-10 trans-04">
+                            Help & FAQs
+                        </a>
+
+                        <a href="#" class="flex-c-m p-lr-10 trans-04">
+                            My Account
+                        </a>
+
+                        <a href="#" class="flex-c-m p-lr-10 trans-04">
+                            EN
+                        </a>
+
+                        <a href="#" class="flex-c-m p-lr-10 trans-04">
+                            USD
+                        </a>
+                    </div>
+                </li>
+            </ul>
+
+            <ul class="main-menu-m">
+                <li>
+                    <a href="index.html">Home</a>
+                    <ul class="sub-menu-m">
+                        <li><a href="index.html">Homepage 1</a></li>
+                        <li><a href="home-02.html">Homepage 2</a></li>
+                        <li><a href="home-03.html">Homepage 3</a></li>
+                    </ul>
+                    <span class="arrow-main-menu-m">
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </span>
+                </li>
+
+                <li>
+                    <a href="product.html">Shop</a>
+                </li>
+
+                <li>
+                    <a href="shoping-cart.html" class="label1 rs1" data-label1="hot">Features</a>
+                </li>
+
+                <li>
+                    <a href="blog.html">Blog</a>
+                </li>
+
+                <li>
+                    <a href="about.html">About</a>
+                </li>
+
+                <li>
+                    <a href="contact.html">Contact</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Modal Search -->
+        <div class="modal-search-header flex-c-m trans-04 js-hide-modal-search">
+            <div class="container-search-header">
+                <button class="flex-c-m btn-hide-modal-search trans-04 js-hide-modal-search">
+                    <img src="~/wwwroot/images/icons/icon-close2.png" alt="CLOSE">
+                </button>
+
+                <form class="wrap-search-header flex-w p-l-15" action="/Products/Index" method="post">
+                    <button class="flex-c-m trans-04" type="submit">
+                        <i class="zmdi zmdi-search"></i>
+                    </button>
+                    <input class="plh3" type="search" name="searchHeader" placeholder="Tìm kiếm ...">
+                </form>
+            </div>
+        </div>
+    </header>
+
+    <!-- Cart -->
+    @{ Html.RenderAction("CartMini", "Shoppingcart");}
+
+
+
+    @RenderBody()
+
+
+    <!-- Footer -->
+    <footer class="bg3 p-t-75 p-b-32">
+        @{ Html.RenderAction("_Footer", "Home");}
+    </footer>
+
+
+    <!-- Back to top -->
+    <div class="btn-back-to-top" id="myBtn">
+        <span class="symbol-btn-back-to-top">
+            <i class="zmdi zmdi-chevron-up"></i>
+        </span>
+    </div>
+
+    <!-- Modal1 -->
+
+
+    <!--===============================================================================================-->
+    <script src="~/wwwroot/vendor/bootstrap/js/popper.js.map"></script>
+    <script src="~/wwwroot/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/wwwroot/vendor/animsition/js/animsition.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/wwwroot/vendor/bootstrap/js/popper.js"></script>
+    <script src="~/wwwroot/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/wwwroot/vendor/select2/select2.min.js"></script>
+    <script>
+        $(".js-select2").each(function () {
+            $(this).select2({
+                minimumResultsForSearch: 20,
+                dropdownParent: $(this).next('.dropDownSelect2')
+            });
+        })
+    </script>
+    <!--===============================================================================================-->
+    <script src="~/wwwroot/vendor/daterangepicker/moment.min.js"></script>
+    <script src="~/wwwroot/vendor/daterangepicker/daterangepicker.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/wwwroot/vendor/slick/slick.min.js"></script>
+    <script src="~/wwwroot/js/slick-custom.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/wwwroot/vendor/parallax100/parallax100.js"></script>
+    <script>
+        $('.parallax100').parallax100();
+    </script>
+    <!--===============================================================================================-->
+    <script src="~/wwwroot/vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
+    <script>
+        $('.gallery-lb').each(function () { // the containers for all your galleries
+            $(this).magnificPopup({
+                delegate: 'a', // the selector for gallery item
+                type: 'image',
+                gallery: {
+                    enabled: true
+                },
+                mainClass: 'mfp-fade'
+            });
+        });
+    </script>
+    <!--===============================================================================================-->
+    <script src="~/wwwroot/vendor/isotope/isotope.pkgd.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/wwwroot/vendor/sweetalert/sweetalert.min.js"></script>
+    <script>
+        $('.js-addwish-b2').on('click', function (e) {
+            e.preventDefault();
+        });
+
+        $('.js-addwish-b2').each(function () {
+            var nameProduct = $(this).parent().parent().find('.js-name-b2').html();
+            $(this).on('click', function () {
+                swal(nameProduct, "is added to wishlist !", "success");
+
+                $(this).addClass('js-addedwish-b2');
+                $(this).off('click');
+            });
+        });
+
+        $('.js-addwish-detail').each(function () {
+            var nameProduct = $(this).parent().parent().parent().find('.js-name-detail').html();
+
+            $(this).on('click', function () {
+                swal(nameProduct, "is added to wishlist !", "success");
+
+                $(this).addClass('js-addedwish-detail');
+                $(this).off('click');
+            });
+        });
+
+        /*---------------------------------------------*/
+
+         $('.js-addcart-detail').each(function () {
+              var nameProduct = $(this).parent().parent().parent().parent().find('.js-name-detail').html();
+              $(this).on('click', function () {
+                  swal(nameProduct, "đã thêm vào giỏ hàng !", "success");
+              });
+          });
+          
+
+        /*.............................................*/
+        $('.js-contact').each(function () {
+            $(this).on('click', function () {
+                swal("Đã gửi", "thông tin liên hệ", "success");
+            });
+        });
+
+    </script>
+    <!--===============================================================================================-->
+    <script src="~/wwwroot/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script>
+        $('.js-pscroll').each(function () {
+            $(this).css('position', 'relative');
+            $(this).css('overflow', 'hidden');
+            var ps = new PerfectScrollbar(this, {
+                wheelSpeed: 1,
+                scrollingThreshold: 1000,
+                wheelPropagation: false,
+            });
+
+            $(window).on('resize', function () {
+                ps.update();
+            })
+        });
+    </script>
+    <!--===============================================================================================-->
+    <script src="~/wwwroot/js/main.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,31 @@
+﻿@model IEnumerable<Contact>
+
+@{
+    ViewBag.Title = "Danh sách liên hệ";
+}
+
+<h2>Danh sách liên hệ</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            Email
+        </th>
+        <th>
+            Ý kiến đóng góp
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+    </tr>
+}
+
+</table>

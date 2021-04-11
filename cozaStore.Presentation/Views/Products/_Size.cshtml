@@ -1,0 +1,10 @@
+﻿@model IEnumerable<ViewDataSize>
+<div class="rs1-select2 bor8 bg0">
+    <select class="js-select2" name="time">
+        @foreach (var item in Model)
+        {
+            <option>@item.Size</option>
+        }
+    </select>
+    <div class="dropDownSelect2"></div>
+</div>

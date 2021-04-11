@@ -1,0 +1,47 @@
+﻿@model cozaStore.Models.Coupon
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Xóa mã giảm giá</h2>
+
+<h3>Bạn chắc chắn muốn xóa bỏ mã giảm giá này?</h3>
+<div>
+    <h4>Thông tin mã giảm giá</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Mã giảm giá
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CouponCode)
+        </dd>
+        <dt>
+            Phần trăm giảm
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Discount)
+        </dd>
+
+        <dt>
+           Mô tả
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Xóa" class="btn btn-default" /> |
+            @Html.ActionLink("Quay lại", "Index")
+        </div>
+    }
+</div>

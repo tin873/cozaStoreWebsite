@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Product>
+<section class="sec-relate-product bg0 p-t-45 p-b-105">
+    <div class="container">
+        <div class="p-b-45">
+            <h3 class="ltext-106 cl5 txt-center" style="font-family:  Montserrat-Bold !important;">
+                Sản phẩm liên quan
+            </h3>
+        </div>
+
+        <!-- Slide2 -->
+        <div class="wrap-slick2">
+            <div class="slick2">
+                @foreach (var item in Model)
+                {
+                        <div class="item-slick2 p-l-15 p-r-15 p-t-15 p-b-15">
+                            <!-- Block2 -->
+
+                            <div class="block2">
+
+                                <div class="block2-pic hov-img0">
+                                    @{ var ImagePath = "~/wwwroot/images/" + item.Image;}
+                                    <img src="@Url.Content(ImagePath)" alt="IMG-PRODUCT">
+
+                                    <a href="@Url.Action("Detail", "Products", new { id = item.ProductID })" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
+                                        Xem chi tiết
+                                    </a>
+                                </div>
+
+                                <div class="block2-txt flex-w flex-t p-t-14">
+                                    <div class="block2-txt-child1 flex-col-l ">
+                                        <a href="@Url.Action("Detail", "Products", new { id = item.ProductID })" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6 js-name-detail">
+                                            @item.ProductName
+                                        </a>
+
+                                        <span class="stext-105 cl3">
+                                            @item.Price vnđ
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                }
+            </div>
+
+        </div>
+    </div>
+</section>

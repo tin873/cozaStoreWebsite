@@ -1,0 +1,140 @@
+﻿@model List<CartItem>
+@{
+    ViewBag.Title = "Thanh toán";
+    decimal sum = 0m;
+}
+
+<form method="post" action="/CheckOut/Index">
+    <div class="container" style="padding-top: 50px;">
+        <div class="header" style="padding: 50px; border-bottom: thin solid;">
+            <h3><strong>Thanh toán giỏ hàng</strong></h3>
+        </div>
+        <div class="body">
+            <div class="row" style="padding: 50px;">
+                <div class="col-sm">
+                    <h4 style="padding-bottom: 30px; font-size: 18px;">
+                        <span style="border-radius: 50%; padding: 5px; background-color: red;">1</span> <strong>Thông tin hóa đơn</strong>
+                    </h4>
+                    <div>
+                        <p>* Bạn có thể sửa thông tin nhận hàng ở phía dưới</p>
+                    </div>
+                    <div>
+                        <div class="form-group">
+                            <label for="fullName">Họ Tên</label>
+                            <input type="text" class="form-control" name="fullName" placeholder="Nhập họ tên" required value="@Session["fullName"]">
+                        </div>
+                        <div class="form-group">
+                            <label for="sdt">Số điện thoại</label>
+                            <input type="text" class="form-control" name="phone" placeholder="Nhập số điện thoại" required value="@Session["phone"]">
+                        </div>
+                        <div class="form-group">
+                            <label for="address">Địa chỉ</label>
+                            <input type="text" class="form-control" name="address" placeholder="Nhập địa chỉ" required value="@Session["address"]">
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Ghi chú</label>
+                            <textarea class="form-control" name="description" rows="3"></textarea>
+                        </div>
+                    </div>
+
+                </div>
+                <div class=" col-sm">
+                    <h4 style="padding-bottom: 30px; font-size: 18px;">
+                        <span style="border-radius: 50%; padding: 5px; background-color: red;">2</span> <strong>Phương thức thanh toán</strong>
+                    </h4>
+                    <div class="form-check" style="padding-left: 30px;">
+                        <input type="checkbox" class="form-check-input" id="pttt">
+                        <label style="padding: 0px;" class="form-check-label" for="pttt">Thanh toán tiền mặt khi nhận hàng (COD)</label>
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <h4 style="padding-bottom: 30px; font-size: 18px;">
+                        <span style="border-radius: 50%; padding: 5px; background-color: red;">3</span> <strong>Thông tin giỏ hàng</strong>
+                    </h4>
+                    <div style="height: 250px; overflow-y: scroll;">
+                        <table style="width: 100%; font-size: 12px;">
+                            <thead style="border-bottom: solid thin;">
+                                <tr>
+                                    <th style="width: 50%; padding: 5px;">Sản phẩm</th>
+                                    <th style="width: 20%; padding: 5px;">Số lượng</th>
+                                    <th style="width: 30%; padding: 5px;">Giá</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr style="border-bottom: thin solid;">
+                                        <td style="text-align: center;">
+                                            <div class="row" style="padding-bottom: 10px; padding-top: 10px;">
+                                                <div class="col" style="padding: 0px;"><img src="~/wwwroot/images/@item.ProductDetail.Image" width="100%"></div>
+                                                <div class="col" style="padding: 10px;"><a><strong>@item.ProductDetail.ProductName</strong></a></div>
+                                            </div>
+                                        </td>
+                                        <td style="text-align: center;">
+                                            @item.Quantity
+                                        </td>
+                                        <td style="text-align: center;">
+                                            @(item.Total.ToString("#,###"))đ
+                                        </td>
+                                    </tr>
+                                    sum += item.Total;
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div style="padding: 10px; border-bottom: thin solid;">
+                        <p>Tổng tiền: @(sum.ToString("#,###"))đ</p>
+                    </div>
+                    <div style="padding: 10px; border-bottom: thin solid;">
+                        <p>Phí vận chuyển: 0đ</p>
+                    </div>
+                    <div style="padding: 10px; border-bottom: thin solid;">
+                        <p>Thành tiền: @(ViewBag.GrandTotal)đ</p>
+                    </div>
+                    <div style="padding: 10px; border-bottom: thin solid;">
+                        <p style="padding-bottom: 10px;">Nhập mã ưu đãi:</p>
+                        <div>
+                            <div class="input-group mb-3 row">
+                                <input type="text" class="form-control code" placeholder="Nhập mã giảm giá" aria-label="Recipient's username" aria-describedby="basic-addon2" onclick="myfunction()">
+
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary coupon" type="button">Áp dụng</button>
+                                </div>
+
+                            </div>
+                            @if (ViewBag.errormg != null)
+                            {
+                                <div class="row" id="eror"><p style="color: red; font-size: 14px; padding: 10px;">@ViewBag.errormg</p></div>
+                            }
+                        </div>
+
+                    </div>
+                    <div style="padding-top: 10px;">
+                        <a href="@Url.Action("Index","Products")" class="btn btn-dark btn-lg btn-block">Tiếp tục mua hàng</a>
+                        <button type="submit" class="btn btn-lg btn-block btn-danger">Tiến hành thanh toán</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script src="~/wwwroot/vendor/jquery/jquery-3.2.1.min.js"></script>
+<script>
+    $(function () {
+        $("button.coupon").click(function (e) {
+            e.preventDefault();
+            var couponCode = $("input.code").val();
+            var url = "/CheckOut/Index";
+            $.get(url, { couponCode: couponCode }, function (data) {
+                location.reload();
+            });
+
+        });
+    });
+
+    function myfunction() {
+        document.getElementById("eror").style.display = "none";
+    }
+</script>

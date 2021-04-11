@@ -1,0 +1,14 @@
+﻿@model IEnumerable<cozaStore.Models.Category>
+
+
+    <button class=" @(ViewContext.RouteData.Values["id"] == null ? "stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" : "stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5")" onclick="location.href = '@Url.Action("Index", "Products")'">
+        Tất cả sản phẩm
+    </button>
+
+    @foreach (var item in Model)
+    {
+        <button style="font-family:  Montserrat-Regular !important;" class=" @(ViewContext.RouteData.Values["id"] != null && ViewContext.RouteData.Values["id"].ToString() == item.CategoryID.ToString() ? "stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" : "stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5")" onclick="location.href='@Url.Action("Index", "Products", new { id = item.CategoryID.ToString().Trim()})'">
+            @item.CategoryName
+        </button>
+    }
+

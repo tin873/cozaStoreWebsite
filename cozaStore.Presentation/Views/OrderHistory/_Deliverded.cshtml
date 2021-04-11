@@ -1,0 +1,16 @@
+﻿
+@model List<Order>
+
+@if (Model.Count() > 0)
+{
+    foreach (var order in Model)
+    {
+        @Html.Partial("_OrderHistoryOverView", order)
+    }
+}
+else
+{
+    <div class="how-pos2 p-lr-15-md">
+        <div style="text-align: center; padding: 150px;"> <img src="~/wwwroot/images/emtyOrder.png"></div>
+    </div>
+}

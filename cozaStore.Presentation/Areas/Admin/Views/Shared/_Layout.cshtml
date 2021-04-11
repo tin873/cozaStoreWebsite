@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+    <!--     Fonts and icons     -->
+    <!-- CSS Files -->
+    <link href="~/Areas/Admin/assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/assets/css/light-bootstrap-dashboard.css?v=2.0.0 " rel="stylesheet" />
+    <!-- CSS Just for demo purpose, don't include it in your project -->
+    <link href="~/Areas/Admin/assets/css/demo.css" rel="stylesheet" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body style="padding:0px 0px 0px 0px">
+    <div class="wrapper">
+        <div class="sidebar" data-image="~/Areas/Admin/assets/img/sidebar-5.jpg">
+            <!--
+                Tip 1: You can change the color of the sidebar using: data-color="purple | blue | green | orange | red"
+
+                Tip 2: you can also add an image using data-image tag
+            -->
+            <div class="sidebar-wrapper">
+                <div class="logo">
+                    <a href="#" class="simple-text">
+                        Bảng điểu khiển
+                    </a>
+                </div>
+                <ul class="nav">
+                    <li>
+                        <a class="nav-link" href="@Url.Action("EditProfile", "AdminHome")">Sửa thông tin cá nhân</a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="@Url.Action("Index", "Users")">Quản lý người dùng</a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="@Url.Action("Index", "Categories")">Quản lý danh mục</a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="@Url.Action("Index", "Coupons")">Quản lý mã giảm giá</a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="@Url.Action("Index", "Contacts")">Danh sách liên hệ</a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="@Url.Action("Index", "Suppliers")">Quản lý nhà cung cấp</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="main-panel">
+            <!-- Navbar -->
+            <nav class="navbar navbar-expand-lg " color-on-scroll="500">
+                <div class="container-fluid">
+
+                    <div class="collapse navbar-collapse justify-content-end" id="navigation">
+                        <ul class="navbar-nav ml-auto navbar-right">
+                            <li class="nav-item">
+                                <span class="no-icon">Xin chào, @Session["fullNameAdmin"]</span>
+                                <a class="nav-link" href="@Url.Action("Logout", "AdminHome")">
+                                    <span class="no-icon">Đăng xuất</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <div class="container">
+                @RenderBody()
+            </div>
+            <!-- End Navbar -->
+        </div>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

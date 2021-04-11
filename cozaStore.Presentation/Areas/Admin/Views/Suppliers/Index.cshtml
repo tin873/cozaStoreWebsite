@@ -1,0 +1,44 @@
+﻿@model IEnumerable<Supplier>
+
+@{
+    ViewBag.Title = "Quản lý nhà cung cấp";
+}
+
+<h2>Danh sách nhà cung cấp</h2>
+
+<p>
+    @Html.ActionLink("Thêm mới", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.SupplierName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Phone)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.SupplierName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Phone)
+        </td>
+        <td>
+            @Html.ActionLink("Sửa", "Edit", new { id=item.SupplierID }) |
+            @Html.ActionLink("Xóa", "Delete", new { id=item.SupplierID })
+        </td>
+    </tr>
+}
+
+</table>
